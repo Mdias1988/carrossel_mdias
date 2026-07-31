@@ -2,16 +2,16 @@
   'use strict';
   const SIZES={'1:1':[1080,1080],'4:5':[1080,1350],'9:16':[1080,1920],'16:9':[1920,1080]};
   const THEMES=[
-    {key:'minimal-light',name:'Minimalista claro',colors:['#f8f6f1','#e8e1d7','#b9aa96'],font:'Manrope',text:'#172033',size:72,position:'center',shapes:['lines','circles'],gradient:'linear',direction:'135',contrast:.08},
-    {key:'minimal-dark',name:'Minimalista escuro',colors:['#101218','#252a35','#5d6575'],font:'Inter',text:'#ffffff',size:72,position:'center',shapes:['lines','blocks'],gradient:'linear',direction:'135',contrast:.26},
-    {key:'corporate-blue',name:'Azul corporativo',colors:['#092a52','#0d62a8','#32a4dc'],font:'Montserrat',text:'#ffffff',size:70,position:'left',shapes:['blocks','lines'],gradient:'linear',direction:'45',contrast:.28},
-    {key:'impact-red',name:'Vermelho de impacto',colors:['#280407','#b20d19','#ff4538'],font:'Anton',text:'#ffffff',size:82,position:'left',shapes:['blocks','lines'],gradient:'radial',direction:'center',contrast:.30},
-    {key:'news',name:'Jornalístico',colors:['#f5f0e6','#1d2633','#b51e27'],font:'Merriweather',text:'#172033',size:64,position:'left',shapes:['lines','blocks'],gradient:'linear',direction:'180',contrast:.10,break:true},
-    {key:'politics-blue',name:'Política azul',colors:['#061b3c','#174c8f','#d8b85a'],font:'Merriweather',text:'#ffffff',size:68,position:'center',shapes:['waves','lines'],gradient:'linear',direction:'135',contrast:.28,break:true},
-    {key:'politics-red',name:'Política vermelho',colors:['#330608','#8f111a','#e0b85c'],font:'Merriweather',text:'#ffffff',size:68,position:'center',shapes:['waves','lines'],gradient:'linear',direction:'135',contrast:.30,break:true},
-    {key:'technology',name:'Tecnologia',colors:['#07172d','#044f63','#17e5c1'],font:'DM Sans',text:'#ecfffb',size:70,position:'left',shapes:['circles','lines'],gradient:'radial',direction:'top-right',contrast:.24},
-    {key:'modern-gradient',name:'Gradiente moderno',colors:['#4527a0','#c43ad6','#ff8a5b'],font:'Plus Jakarta Sans',text:'#ffffff',size:72,position:'center',shapes:['circles','waves'],gradient:'linear',direction:'135',contrast:.18},
-    {key:'piseiro',name:'Entretenimento e piseiro',colors:['#42115f','#ec1879','#ffca28'],font:'Bebas Neue',text:'#ffffff',size:86,position:'center',shapes:['waves','circles','blocks'],gradient:'radial',direction:'center',contrast:.22,break:true}
+    {key:'minimal-light',name:'Minimalista claro',colors:['#f8f6f1','#e8e1d7','#b9aa96'],font:'sans-serif-light',text:'#172033',size:72,position:'center',shapes:['lines','circles'],gradient:'linear',direction:'135',contrast:.08},
+    {key:'minimal-dark',name:'Minimalista escuro',colors:['#101218','#252a35','#5d6575'],font:'sans-serif',text:'#ffffff',size:72,position:'center',shapes:['lines','blocks'],gradient:'linear',direction:'135',contrast:.26},
+    {key:'corporate-blue',name:'Azul corporativo',colors:['#092a52','#0d62a8','#32a4dc'],font:'sans-serif',text:'#ffffff',size:70,position:'left',shapes:['blocks','lines'],gradient:'linear',direction:'45',contrast:.28},
+    {key:'impact-red',name:'Vermelho de impacto',colors:['#280407','#b20d19','#ff4538'],font:'sans-serif-black',text:'#ffffff',size:82,position:'left',shapes:['blocks','lines'],gradient:'radial',direction:'center',contrast:.30},
+    {key:'news',name:'Jornalístico',colors:['#f5f0e6','#1d2633','#b51e27'],font:'serif',text:'#172033',size:64,position:'left',shapes:['lines','blocks'],gradient:'linear',direction:'180',contrast:.10,break:true},
+    {key:'politics-blue',name:'Política azul',colors:['#061b3c','#174c8f','#d8b85a'],font:'serif',text:'#ffffff',size:68,position:'center',shapes:['waves','lines'],gradient:'linear',direction:'135',contrast:.28,break:true},
+    {key:'politics-red',name:'Política vermelho',colors:['#330608','#8f111a','#e0b85c'],font:'serif',text:'#ffffff',size:68,position:'center',shapes:['waves','lines'],gradient:'linear',direction:'135',contrast:.30,break:true},
+    {key:'technology',name:'Tecnologia',colors:['#07172d','#044f63','#17e5c1'],font:'monospace',text:'#ecfffb',size:70,position:'left',shapes:['circles','lines'],gradient:'radial',direction:'top-right',contrast:.24},
+    {key:'modern-gradient',name:'Gradiente moderno',colors:['#4527a0','#c43ad6','#ff8a5b'],font:'cursive',text:'#ffffff',size:72,position:'center',shapes:['circles','waves'],gradient:'linear',direction:'135',contrast:.18},
+    {key:'piseiro',name:'Entretenimento e piseiro',colors:['#42115f','#ec1879','#ffca28'],font:'sans-serif-condensed',text:'#ffffff',size:86,position:'center',shapes:['waves','circles','blocks'],gradient:'radial',direction:'center',contrast:.22,break:true}
   ];
   const esc=v=>String(v).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[m]));
   const data=svg=>'data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(svg)));
@@ -52,13 +52,17 @@
   }
   function makeTemplate(settings,ratio,extra={}){
     const pos=settings.position||'center';
-    return {id:extra.id||`theme-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,7)}`,name:extra.name||settings.name,ratio,background:render(settings,ratio),breakImage:breakImage(settings,ratio),logo:null,builtin:!!extra.builtin,generator:{...settings,ratio},config:{fontFamily:settings.font||'Inter',fill:settings.text||'#ffffff',textAlign:pos==='center'?'center':pos==='right'?'right':'left',fontSize:+settings.size||72,minFontSize:+settings.minSize||28,maxWidth:+settings.maxWidth||80,padding:+settings.padding||7,lineHeight:+settings.lineHeight||1.12,x:pos==='left'?10:pos==='right'?90:50,y:50,palette:settings.colors,safeArea:{padding:+settings.padding||7}}};
+    const maxWidth=+settings.maxWidth||80,padding=+settings.padding||7;
+    const x=pos==='left'?padding+maxWidth/2:pos==='right'?100-padding-maxWidth/2:50;
+    return {id:extra.id||`theme-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,7)}`,name:extra.name||settings.name,ratio,background:render(settings,ratio),breakImage:breakImage(settings,ratio),logo:null,builtin:!!extra.builtin,generator:{...settings,ratio},config:{fontFamily:settings.font||'sans-serif',fill:settings.text||'#ffffff',textAlign:pos==='center'?'center':pos==='right'?'right':'left',fontSize:+settings.size||72,minFontSize:+settings.minSize||28,maxWidth,padding,lineHeight:+settings.lineHeight||1.12,x,y:50,palette:settings.colors,safeArea:{padding}}};
   }
   function seed(db){
-    if(db.libraryVersion)return false;
-    db.libraryVersion=1;
+    if(db.libraryVersion>=2)return false;
+    db.libraryVersion=2;
+    db.templates=(db.templates||[]).filter(t=>!t.builtin);
     for(const theme of THEMES)for(const ratio of Object.keys(SIZES))db.templates.push(makeTemplate({...theme,opacity:.28,texture:true,padding:7,maxWidth:80,minSize:28,lineHeight:1.12},ratio,{id:`builtin-${theme.key}-${ratio.replace(':','x')}`,name:`${theme.name} — ${ratio}`,builtin:true}));
     return true;
   }
   window.ThemeLibrary={themes:THEMES,sizes:SIZES,render,makeTemplate,seed};
 })();
+
