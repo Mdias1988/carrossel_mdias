@@ -1,0 +1,19 @@
+{
+  "name": "carrossel-studio-android",
+  "version": "1.1.0",
+  "private": true,
+  "scripts": {
+    "android:add": "cap add android",
+    "sync": "cap sync android",
+    "apk": "cd android && gradlew.bat assembleDebug"
+  },
+  "dependencies": {
+    "@capacitor/android": "6.2.1",
+    "@capacitor/cli": "6.2.1",
+    "@capacitor/core": "6.2.1",
+    "@capacitor/filesystem": "6.0.3",
+    "@capacitor/share": "6.0.3",
+    "fabric": "5.3.0",
+    "jszip": "3.10.1"
+  }
+}

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Carrossel Studio</title>
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="mobile.css">
+</head>
+<body>
+  <header class="top">
+    <button class="brand nav" data-view="projects">CARROSSEL <b>STUDIO</b></button>
+    <nav>
+      <button class="nav active" data-view="projects">Projetos</button>
+      <button class="nav" data-view="templates">Templates</button>
+      <button id="openData">Dados e backup</button>
+    </nav>
+  </header>
+  <main id="projects" class="page view"></main>
+  <main id="templates" class="page view hidden"></main>
+  <main id="editor" class="view hidden"></main>
+
+  <dialog id="templateDialog">
+    <form id="templateForm">
+      <h2>Novo template</h2>
+      <div class="form-grid">
+        <label>Nome<input name="name" required></label>
+        <label>Proporção<select name="ratio"><option>1:1</option><option>4:5</option><option>9:16</option><option>16:9</option></select></label>
+        <label>Fundo principal<button type="button" class="file-btn" data-file="background">Escolher imagem</button><small data-name="background">Nenhuma imagem</small></label>
+        <label>Logo opcional<button type="button" class="file-btn" data-file="logo">Escolher imagem</button><small data-name="logo">Nenhuma imagem</small></label>
+        <label>Imagem de quebra<button type="button" class="file-btn" data-file="breakImage">Escolher imagem</button><small data-name="breakImage">Nenhuma imagem</small></label>
+        <label>Fonte<select name="fontFamily"></select></label>
+        <label>Cor<input type="color" name="fill" value="#ffffff"></label>
+        <label>Alinhamento<select name="textAlign"><option value="left">Esquerda</option><option value="center" selected>Centro</option><option value="right">Direita</option></select></label>
+        <label>Tamanho inicial<input type="number" name="fontSize" value="72" min="12"></label>
+        <label>Tamanho mínimo<input type="number" name="minFontSize" value="30" min="8"></label>
+        <label>Largura do texto (%)<input type="number" name="maxWidth" value="80" min="20" max="95"></label>
+        <label>Margem segura (%)<input type="number" name="padding" value="6" min="0" max="20"></label>
+        <label>Entrelinhas<input type="number" name="lineHeight" value="1.15" min=".7" max="3" step=".05"></label>
+      </div>
+      <div class="actions"><button type="button" class="btn close-dialog">Cancelar</button><button class="btn primary">Salvar template</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="projectDialog">
+    <form id="projectForm">
+      <h2>Novo projeto</h2>
+      <label>Nome<input name="name" required></label>
+      <label>Template<select name="templateId" required></select></label>
+      <div class="actions"><button type="button" class="btn close-dialog">Cancelar</button><button class="btn primary">Criar e editar</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="generatorDialog" class="generator-dialog">
+    <form id="generatorForm">
+      <input type="hidden" name="editId">
+      <h2>Gerador simples de fundos</h2>
+      <div class="generator-layout">
+        <div class="form-grid">
+          <label>Nome do tema<input name="name" value="Meu tema" required></label>
+          <label>Proporção<select name="ratio"><option>1:1</option><option>4:5</option><option>9:16</option><option>16:9</option></select></label>
+          <label>Cor principal<input type="color" name="color1" value="#172033"></label>
+          <label>Cor secundária<input type="color" name="color2" value="#6d4aff"></label>
+          <label>Cor terciária<input type="color" name="color3" value="#38e0a0"></label>
+          <label>Gradiente<select name="gradient"><option value="linear">Linear</option><option value="radial">Radial</option></select></label>
+          <label>Direção<select name="direction"><option value="135">Diagonal</option><option value="0">Horizontal</option><option value="90">Vertical</option><option value="center">Do centro</option><option value="top-right">Canto superior</option></select></label>
+          <label>Fonte<select name="font"></select></label>
+          <label>Cor do texto<input type="color" name="text" value="#ffffff"></label>
+          <label>Posição<select name="position"><option value="left">Esquerda</option><option value="center" selected>Centro</option><option value="right">Direita</option></select></label>
+          <label>Tamanho inicial<input type="number" name="size" value="72" min="12"></label>
+          <label>Margem segura (%)<input type="number" name="padding" value="7" min="2" max="20"></label>
+          <label>Opacidade das formas<input type="range" name="opacity" value=".28" min=".05" max=".8" step=".05"></label>
+          <label>Contraste do texto<input type="range" name="contrast" value=".2" min="0" max=".7" step=".05"></label>
+        </div>
+        <div>
+          <fieldset><legend>Formas decorativas</legend><label class="check"><input type="checkbox" name="shape" value="waves"> Ondas</label><label class="check"><input type="checkbox" name="shape" value="circles" checked> Círculos</label><label class="check"><input type="checkbox" name="shape" value="lines" checked> Linhas</label><label class="check"><input type="checkbox" name="shape" value="blocks"> Blocos</label><label class="check"><input type="checkbox" name="texture" checked> Textura leve</label></fieldset>
+          <img id="generatorPreview" class="generator-preview" alt="Prévia do fundo">
+        </div>
+      </div>
+      <div class="actions"><button type="button" class="btn close-dialog">Cancelar</button><button class="btn primary">Salvar como tema</button></div>
+    </form>
+  </dialog>
+
+  <script src="vendor/fabric.min.js"></script>
+  <script src="vendor/jszip.min.js"></script>
+  <script src="mobile-api.js"></script>
+  <script src="themes.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

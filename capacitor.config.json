@@ -1,0 +1,9 @@
+{
+  "appId": "com.carrosselstudio.app",
+  "appName": "Carrossel Studio",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": false,
+    "backgroundColor": "#f4f6fa"
+  }
+}
