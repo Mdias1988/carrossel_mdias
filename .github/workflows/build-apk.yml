@@ -29,7 +29,7 @@ jobs:
           cache: gradle
 
       - name: Instalar dependências
-        run: npm ci
+        run: npm install --no-audit --no-fund
 
       - name: Sincronizar aplicação Android
         run: npx cap sync android
