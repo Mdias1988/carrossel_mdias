@@ -1,0 +1,8 @@
+node_modules/
+.npm-cache/
+.tooling/
+android7-failed/
+android/.gradle/
+android/local.properties
+android/**/build/
+*.log
